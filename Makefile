@@ -1,4 +1,4 @@
-name = reproducible-bioinformatics/lemaitre
+name = fairflow-bioinformaticsframework/lemaitre
 build-arg := $(shell git describe --exact-match --tags 2> /dev/null || git rev-parse --short HEAD)
 
 build:
