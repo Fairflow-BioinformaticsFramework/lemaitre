@@ -64,7 +64,7 @@ export const configurationRepository = (
   function generateSection(
     toolList: Tool[],
     id: string = "customsection",
-    name: string = "Custom Section",
+    name: string = Deno.env.get("SECTION_NAME") ?? "Custom Functions",
   ): SectionEntity {
     return {
       "@id": id,
