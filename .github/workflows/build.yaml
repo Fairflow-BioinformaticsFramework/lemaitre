@@ -3,9 +3,13 @@ on:
   push:
     branches: [main]
   release:
+    types: [published]
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
       - uses: actions/checkout@v3
 
@@ -20,3 +24,10 @@ jobs:
 
       - name: Build and push Docker
         run: make build
+
+      - name: Tag latest on release
+        if: github.event_name == 'release'
+        run: |
+          docker buildx imagetools create \
+            -t ghcr.io/fairflow-bioinformaticsframework/lemaitre:latest \
+            ghcr.io/fairflow-bioinformaticsframework/lemaitre:$(git describe --tags)
